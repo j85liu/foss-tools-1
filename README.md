@@ -9,16 +9,14 @@ minutes. $460 million lost. The company was sold off within a week.
 (Source: SEC's public order on the incident.)
 
 Meridian Trading (fictional) just had the same thing happen. Look in
-`ci-cd/configs/` — one server never got the update, just like the
-real incident. Everything else in this repo is Meridian's tooling as
-it existed that day: no CI, no required review, no license, no
-documented process.
+`ci/configs/` — one server never got the update, just like the real
+incident.
 
-Two teams will build real fixes. A third piece — docs, licensing,
-and dependency hygiene — gets covered as a group discussion, not a
-build. By the end, Meridian will have gone from "nothing catches
-this" to "this can't happen silently again."
+Your team has 5 roles: a CI Lead, a Version Control Lead, a CD Lead,
+a Wrap-Up Lead, and a Presenter. Work through the four sections
+together, in order — CI, then Version Control, then CD, then Wrap-Up
+— each led by its own lead. The Presenter compiles everyone's
+contributions into a 3-4 slide deck.
 
-Teams that finish early can attempt an optional stretch goal: turning
-this from CI (verify) into full CI/CD (verify, then automatically
-ship a status page).
+By the end, Meridian will have gone from "nothing catches this" to
+"this can't happen silently again, and the fix ships itself."
