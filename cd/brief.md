@@ -44,4 +44,5 @@ text, and updates automatically whenever you push a change.
 
 ## What to hand the Presenter
 A screenshot of the live status page, or the actual link if
-presenting from a laptop. This becomes Slide 4
+presenting from a laptop. This becomes the other half of Slide 3
+(shared with Version Control).

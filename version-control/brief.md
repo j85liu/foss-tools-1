@@ -26,4 +26,4 @@ couldn't apply them, is still useful to bring to the Presenter.
 
 ## What to hand the Presenter
 A screenshot of the blocked PR and, ideally, the unblocked one after
-the fix. This becomes Slide 3.
+the fix. This becomes half of Slide 3 (shared with CD).
