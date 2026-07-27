@@ -7,6 +7,7 @@ on:
 jobs:
   check-server-configs:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -22,6 +23,7 @@ jobs:
           for f in server-*.md; do
             status=$(grep -oP '(?<=Flag Status: ).*' "$f")
             echo "$f -> $status"
+
             if [ "$status" != "$baseline" ]; then
               echo "::error file=ci/configs/$f::Flag Status mismatch: expected '$baseline', found '$status'"
               mismatch=1
@@ -34,3 +36,33 @@ jobs:
           fi
 
           echo "All 8 server configs match."
+
+  deploy:
+    needs: check-server-configs
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload status page
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: cd/public
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
