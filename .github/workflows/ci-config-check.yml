@@ -1,0 +1,36 @@
+name: CI - Server Config Consistency Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-server-configs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Verify all server configs match
+        run: |
+          cd ci/configs
+          echo "Checking Flag Status across all server configs..."
+
+          baseline=$(grep -oP '(?<=Flag Status: ).*' server-1.md)
+          mismatch=0
+
+          for f in server-*.md; do
+            status=$(grep -oP '(?<=Flag Status: ).*' "$f")
+            echo "$f -> $status"
+            if [ "$status" != "$baseline" ]; then
+              echo "::error file=ci/configs/$f::Flag Status mismatch: expected '$baseline', found '$status'"
+              mismatch=1
+            fi
+          done
+
+          if [ "$mismatch" -eq 1 ]; then
+            echo "One or more servers do not match the rest. Failing build."
+            exit 1
+          fi
+
+          echo "All 8 server configs match."
