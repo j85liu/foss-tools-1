@@ -1,0 +1,13 @@
+name: check-status
+on: push
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if placeholder remains
+        run: |
+          if grep -rn "#INPUT_" ci/configs/; then
+            echo "Found an unresolved config!"
+            exit 1
+          fi
