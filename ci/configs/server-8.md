@@ -1,3 +1,3 @@
 # Server 8 Config
 
-Flag Status: RETIRED
+#INPUT_FLAG_STATUS
